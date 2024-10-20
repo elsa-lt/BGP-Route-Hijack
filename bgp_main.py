@@ -113,9 +113,15 @@ def main():
     for router in net.switches:
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
-        router.cmd("/home/mininet/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid > logs/%s-zebra-stdout 2>&1" % (router.name, router.name, router.name))
+       # Change path
+        zebra_command = "/home/mininet/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
+        bgpd_command = "/home/mininet/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
+
+        router.cmd(f"{zebra_command} > logs/{router.name}-zebra-stdout 2>&1 &")
         router.waitOutput()
-        router.cmd("/home/mininet/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid > logs/%s-bgpd-stdout 2>&1" % (router.name, router.name, router.name), shell=True)
+
+        # Start bgpd with output redirection
+        router.cmd(f"{bgpd_command} > logs/{router.name}-bgpd-stdout 2>&1 &", shell=True)
         router.cmd("ifconfig lo up")
         router.waitOutput()
         log("Starting zebra and bgpd on %s" % router.name)
