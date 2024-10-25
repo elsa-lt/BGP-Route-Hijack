@@ -82,14 +82,17 @@ class Topology(Topo):
 def getIP(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
+    idx = int(idx) 
     ip = '10.%d.%d.1/24' % (AS, idx) if AS < 6 else '20.0.%d.1/24' % idx
     return ip
 
 def getGateway(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
+    idx = int(idx)  
     gw = '10.%d.%d.254' % (AS, idx) if AS < 6 else '20.0.%d.254' % idx
     return gw
+
 
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
