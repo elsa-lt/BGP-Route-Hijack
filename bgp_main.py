@@ -117,8 +117,8 @@ def main():
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
        # Change path
-        zebra_command = "/home/mininet/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
-        bgpd_command = "/home/mininet/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
+        zebra_command = "/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
+        bgpd_command = "/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
 
         router.cmd(f"{zebra_command} > logs/{router.name}-zebra-stdout 2>&1 &")
         router.waitOutput()
