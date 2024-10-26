@@ -4,7 +4,6 @@ from mininet.log import setLogLevel, info
 from mininet.util import dumpNodeConnections
 from mininet.cli import CLI
 from mininet.node import OVSKernelSwitch
-
 from subprocess import Popen
 from time import sleep
 import os
@@ -26,6 +25,8 @@ def log(s, col="green"):
 
 class Router(OVSKernelSwitch):
     ID = 0
+    OVSVersion = "2.0.0"  # Added to bypass Mininet's OVS check
+
     def __init__(self, name, **kwargs):
         kwargs['inNamespace'] = True
         OVSKernelSwitch.__init__(self, name, **kwargs)
@@ -106,7 +107,7 @@ def main():
     for router in net.switches:
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
-       # Change path
+        # Change path
         zebra_command = "/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
         bgpd_command = "/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
 
