@@ -96,9 +96,11 @@ def main():
     net = Mininet(topo=Topology(), switch=Router)
     net.start()
 
+    # Enable IP forwarding on each router and add debug message
     for router in net.switches:
-        router.cmd("sysctl -w net.ipv4.ip_forward=1")  # Enable IP forwarding per router
-        router.waitOutput()
+        router.cmd("sysctl -w net.ipv4.ip_forward=1")
+        output = router.cmd("sysctl net.ipv4.ip_forward")
+        log(f"IP forwarding status on {router.name}: {output.strip()}")
 
     log("Waiting %d seconds for sysctl changes to take effect..." % args.sleep)
     sleep(args.sleep)
@@ -107,19 +109,18 @@ def main():
     for router in net.switches:
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
-        # Change path
-        zebra_command = "/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
-        bgpd_command = "/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
-
-        router.cmd(f"{zebra_command} > logs/{router.name}-zebra-stdout 2>&1 &")
-        router.waitOutput()
-
-        # Start bgpd with output redirection
-        router.cmd(f"{bgpd_command} > logs/{router.name}-bgpd-stdout 2>&1 &", shell=True)
+        
+        # Start zebra and bgpd
+        zebra_command = f"/usr/lib/frr/zebra -f conf/zebra-{router.name}.conf -d -i /tmp/zebra-{router.name}.pid"
+        bgpd_command = f"/usr/lib/frr/bgpd -f conf/bgpd-{router.name}.conf -d -i /tmp/bgp-{router.name}.pid"
+        
+        router.cmd(zebra_command)
+        router.cmd("sleep 1")  # Allow some time for zebra to start
+        router.cmd(bgpd_command)
         router.cmd("ifconfig lo up")
-        router.waitOutput()
-        log("Starting zebra and bgpd on %s" % router.name)
-
+        
+        log(f"Started zebra and bgpd on {router.name}")
+        
     # Configure hosts with IP and gateway
     for host in net.hosts:
         ip = "10.%d.%d.1/24" % (int(host.name.split('-')[0][1:]), int(host.name.split('-')[1]))
