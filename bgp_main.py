@@ -86,13 +86,14 @@ class GraphTopo(Topo):
         routers.append(router)
         # set R1-R6 add 3 host each
         hosts = []
-        for i in xrange(num_ases):
+        for i in range(num_ases):
+            router = self.addSwitch('S%d' % (i+1))
+
+        for i in range(num_ases):
             router = 'S%d' % (i+1)
-            for j in xrange(num_hosts_per_as):
+            for j in range(num_hosts_per_as):
                 hostname = 'h%d-%d' % (i+1, j+1)
-                host = self.addNode(hostname)
-                hosts.append(host)
-                self.addLink(router, host)
+
         # add link for ASes
         self.addLink('S2', 'S3')
         self.addLink('S2', 'S4')
