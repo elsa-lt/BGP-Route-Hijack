@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from mininet.topo import Topo
 from mininet.net import Mininet
@@ -19,27 +19,27 @@ import time
 
 setLogLevel('info')
 
-parser = ArgumentParser("Configure simple BGP network in Mininet.")
+parser = ArgumentParser("Configure BGP network in Mininet.")
 parser.add_argument('--rogue', action="store_true", default=False)
 parser.add_argument('--sleep', default=3, type=int)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
-ROGUE_AS_NAME = 'S6'
-
+ROGUE_AS_NAME = 'R6'
 
 def log(s, col="green"):
-    print(T.colored(s, col))
+    print T.colored(s, col)
 
 
 class Router(Switch):
-    """Defines a router in a network namespace with separate routing entries."""
+    """Defines a new router that is inside a network namespace so that the
+    individual routing entries don't collide.
 
+    """
     ID = 0
-
     def __init__(self, name, **kwargs):
         kwargs['inNamespace'] = True
-        super(Router, self).__init__(name, **kwargs)
+        Switch.__init__(self, name, **kwargs)
         Router.ID += 1
         self.switch_id = Router.ID
 
@@ -54,40 +54,61 @@ class Router(Switch):
         self.deleteIntfs()
 
     def log(self, s, col="magenta"):
-        print(T.colored(s, col))
+        print T.colored(s, col)
 
 
 class GraphTopo(Topo):
-    """Graph topology for Autonomous Systems setup with routers and hosts."""
+    """The Autonomous System topology is graph topology
+            AS4
+           / | \
+          /  |  \
+         AS2-----AS5
+         |\  |   /|
+         | \ |  / |
+         |  AS3   |
+         |  /     |
+         | /      |
+         AS1     AS6
 
+    """
     def __init__(self):
-        super(GraphTopo, self).__init__()
+        # Add default members to class.
+        super(GraphTopo, self ).__init__()
         num_hosts_per_as = 3
         num_ases = 6
-
-        # Set up routers and hosts
-        routers = []
-        for i in range(num_ases):
-            router = self.addSwitch(f'R{i+1}')
-            routers.append(router)
-
-        for i in range(num_ases):
-            router = f'R{i+1}'
-            for j in range(num_hosts_per_as):
-                hostname = f'h{i+1}-{j+1}'
-                host = self.addHost(hostname)
+        num_hosts = num_hosts_per_as * num_ases
+        # The topology has one router per AS
+        # set 1-6 routers
+	routers = []
+        for i in xrange(num_ases):
+            router = self.addSwitch('S%d' % (i+1))
+	    routers.append(router)
+        # set R1-R6 add 3 host each
+        hosts = []
+        for i in xrange(num_ases):
+            router = 'S%d' % (i+1)
+            for j in xrange(num_hosts_per_as):
+                hostname = 'h%d-%d' % (i+1, j+1)
+                host = self.addNode(hostname)
+                hosts.append(host)
                 self.addLink(router, host)
-
-        # Interconnect the AS routers
+        # add link for ASes
         self.addLink('S2', 'S3')
         self.addLink('S2', 'S4')
         self.addLink('S2', 'S5')
+
         self.addLink('S3', 'S4')
         self.addLink('S3', 'S5')
+
         self.addLink('S4', 'S5')
+
         self.addLink('S1', 'S2')
         self.addLink('S1', 'S3')
+
         self.addLink('S5', 'S6')
+
+        self.addLink('S1', 'S4')
+        return
 
 
 def getIP(hostname):
@@ -95,35 +116,24 @@ def getIP(hostname):
     AS = int(AS)
     if AS == 6:
         AS = 1
-    ip = f'10.{10+AS}.0.{idx}/24'
+    ip = '%s.0.%s.1/24' % (10+AS, idx)
     return ip
 
 
 def getGateway(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
+    # This condition gives AS4 the same IP range as AS3 so it can be an
+    # attacker.
     if AS == 6:
         AS = 1
-    gw = f'10.{10+AS}.0.254'
+    gw = '%s.0.%s.254' % (10+AS, idx)
     return gw
-
-
-def start_router(router):
-    """Function to start zebra and bgpd for BGP configurations."""
-    zebra_cmd = f"/usr/lib/frr/zebra -f conf/zebra-{router.name}.conf -d -i /tmp/zebra-{router.name}.pid"
-    bgpd_cmd = f"/usr/lib/frr/bgpd -f conf/bgpd-{router.name}.conf -d -i /tmp/bgp-{router.name}.pid"
-
-    router.cmd(zebra_cmd)
-    router.waitOutput()
-    router.cmd(bgpd_cmd)
-    router.waitOutput()
-    router.cmd("ifconfig lo up")
-    log(f"Started BGP and Zebra on {router.name}")
 
 
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
-    return host.popen(f"python3 -m http.server 80 --bind 0.0.0.0 & echo '{text}'", shell=True)
+    return host.popen("python webserver.py --text '%s'" % text, shell=True)
 
 
 def main():
@@ -134,24 +144,34 @@ def main():
 
     net = Mininet(topo=GraphTopo(), switch=Router)
     net.start()
-
     for router in net.switches:
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
         router.waitOutput()
 
-    log(f"Waiting {args.sleep} seconds for sysctl changes to take effect...")
+    log("Waiting %d seconds for sysctl changes to take effect..." % args.sleep)
     sleep(args.sleep)
 
     for router in net.switches:
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
-        start_router(router)
+        
+        # Updated zebra and bgpd commands with new paths
+        zebra_command = "/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
+        bgpd_command = "/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
+
+        # Start zebra with output redirection
+        router.cmd(f"{zebra_command} > logs/{router.name}-zebra-stdout 2>&1 &")
+        router.waitOutput()
+
+        # Start bgpd with output redirection
+        router.cmd(f"{bgpd_command} > logs/{router.name}-bgpd-stdout 2>&1 &", shell=True)
+        router.cmd("ifconfig lo up")
+        router.waitOutput()
+        log("Starting zebra and bgpd on %s" % router.name)
 
     for host in net.hosts:
-        ip = getIP(host.name)
-        gw = getGateway(host.name)
-        host.cmd(f"ifconfig {host.name}-eth0 {ip}")
-        host.cmd(f"route add default gw {gw}")
+        host.cmd("ifconfig %s-eth0 %s" % (host.name, getIP(host.name)))
+        host.cmd("route add default gw %s" % (getGateway(host.name)))
 
     log("Starting web servers", 'yellow')
     startWebserver(net, 'h1-1', "Default web server")
