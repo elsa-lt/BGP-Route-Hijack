@@ -25,7 +25,7 @@ parser.add_argument('--sleep', default=3, type=int)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
-ROGUE_AS_NAME = 'S4'
+ROGUE_AS_NAME = 'S6'
 
 def log(s, col="green"):
     # Up to python3
@@ -69,7 +69,7 @@ class SimpleTopo(Topo):
         # Add default members to class.
         super(SimpleTopo, self ).__init__()
         num_hosts_per_as = 3
-        num_ases = 3
+        num_ases = 5
         num_hosts = num_hosts_per_as * num_ases
         # The topology has one router per AS
         routers = []
@@ -89,22 +89,22 @@ class SimpleTopo(Topo):
             self.addLink('S%d'%(i+1), 'S%d'%(i+2))
 
         # Lastly, added AS4!
-        routers.append(self.addSwitch('S4'))
+        routers.append(self.addSwitch('S6'))
         for j in range(num_hosts_per_as):
             hostname = 'h%d-%d' % (4, j+1)
-            host = self.addHost(hostname, ip = "13.0.%d.1/24"%(j+1), defaultRoute = "via 13.0.%d.254"%(j+1))
+            host = self.addHost(hostname, ip = "15.0.%d.1/24"%(j+1), defaultRoute = "via 15.0.%d.254"%(j+1))
             hosts.append(host)
-            self.addLink('S4', hostname)
+            self.addLink('S6', hostname)
         # This MUST be added at the end
-        self.addLink('S1', 'S4')
+        self.addLink('S1', 'S6')
         return
 
 
 def getIP(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
-    if AS == 4:
-        AS = 3
+    if AS == 6:
+        AS = 5
     ip = '%s.0.%s.1/24' % (10+AS, idx)
     return ip
 
@@ -114,8 +114,8 @@ def getGateway(hostname):
     AS = int(AS)
     # This condition gives AS4 the same IP range as AS3 so it can be an
     # attacker.
-    if AS == 4:
-        AS = 3
+    if AS == 6:
+        AS = 5
     gw = '%s.0.%s.254' % (10+AS, idx)
     return gw
 
@@ -123,7 +123,6 @@ def getGateway(hostname):
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
     return host.popen("sudo python3 webserver.py --text '%s'" % text, shell=True)
-
 
 def main():
     os.system("rm -f /tmp/S*.log /tmp/S*.pid logs/*")
@@ -147,18 +146,8 @@ def main():
         router.cmd("/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid > logs/%s-zebra-stdout 2>&1" % (router.name, router.name, router.name))
         router.waitOutput()
         router.cmd("/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid > logs/%s-bgpd-stdout 2>&1" % (router.name, router.name, router.name), shell=True)
-        # mannual start the interface 'lo'
+  
         router.cmd("ifconfig lo up")
-        # mannual add the route table
-        #if router.name == "S1":
-        #   router.cmd("route add -net 12.0.0.0/8 gw 9.0.0.2")
-        #    router.cmd("route add -net 13.0.0.0/8 gw 9.0.0.2")
-        #elif router.name == "S2":
-        #    router.cmd("route add -net 11.0.0.0/8 gw 9.0.0.1")
-        #    router.cmd("route add -net 13.0.0.0/8 gw 9.0.1.2")
-        #elif router.name == "S3":
-        #    router.cmd("route add -net 11.0.0.0/8 gw 9.0.1.1")
-        #    router.cmd("route add -net 12.0.0.0/8 gw 9.0.1.1")
         router.waitOutput()
         log("Starting zebra and bgpd on %s" % router.name)
 
@@ -168,8 +157,8 @@ def main():
     #    host.cmd("route add default gw %s" % (getGateway(host.name)))
 
     log("Starting web servers", 'yellow')
-    startWebserver(net, 'h3-1', "Default web server")
-    startWebserver(net, 'h4-1', "*** Attacker web server ***")
+    startWebserver(net, 'h5-1', "Default web server")
+    startWebserver(net, 'h6-1', "*** Attacker web server ***")
 
     CLI(net)
     net.stop()
