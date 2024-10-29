@@ -88,8 +88,8 @@ class SimpleTopo(Topo):
         # Lastly, added AS6!
         routers.append(self.addSwitch('S6'))
         for j in range(num_hosts_per_as):
-            hostname = 'h%d-%d' % (4, j+1)
-            host = self.addHost(hostname, ip = "13.0.%d.1/24"%(j+1), defaultRoute = "via 13.0.%d.254"%(j+1))
+            hostname = 'h%d-%d' % (6, j+1)
+            host = self.addHost(hostname, ip = "15.0.%d.1/24"%(j+1), defaultRoute = "via 15.0.%d.254"%(j+1))
             hosts.append(host)
             self.addLink('S6', hostname)
         # This MUST be added at the end
