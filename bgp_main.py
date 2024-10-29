@@ -34,7 +34,6 @@ def log(s, col="green"):
 class Router(Switch):
     """Defines a new router that is inside a network namespace so that the
     individual routing entries don't collide.
-
     """
     ID = 0
     def __init__(self, name, **kwargs):
@@ -69,7 +68,6 @@ class GraphTopo(Topo):
          |  /     |
          | /      |
          AS1     AS6
-
     """
     def __init__(self):
         # Add default members to class.
@@ -80,20 +78,20 @@ class GraphTopo(Topo):
         # The topology has one router per AS
         # set 1-6 routers
         routers = []
-        for i in xrange(num_ases):
-            router = self.addSwitch('S%d' % (i+1))
-            
-        routers.append(router)
-        # set R1-R6 add 3 host each
-        hosts = []
         for i in range(num_ases):
             router = self.addSwitch('S%d' % (i+1))
-
+            routers.append(router)
+            
+        # set R1-R6 add 3 host each
+        hosts = []
         for i in range(num_ases):
             router = 'S%d' % (i+1)
             for j in range(num_hosts_per_as):
                 hostname = 'h%d-%d' % (i+1, j+1)
-
+                host = self.addNode(hostname)
+                hosts.append(host)
+                self.addLink(router, host)
+                
         # add link for ASes
         self.addLink('S2', 'S3')
         self.addLink('S2', 'S4')
