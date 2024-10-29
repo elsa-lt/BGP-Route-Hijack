@@ -155,15 +155,11 @@ def main():
         if router.name == ROGUE_AS_NAME and not FLAGS_rogue_as:
             continue
         
-        # Updated zebra and bgpd commands with new paths
         zebra_command = "/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid" % (router.name, router.name)
         bgpd_command = "/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid" % (router.name, router.name)
 
-        # Start zebra with output redirection
         router.cmd(f"{zebra_command} > logs/{router.name}-zebra-stdout 2>&1 &")
         router.waitOutput()
-
-        # Start bgpd with output redirection
         router.cmd(f"{bgpd_command} > logs/{router.name}-bgpd-stdout 2>&1 &", shell=True)
         router.cmd("ifconfig lo up")
         router.waitOutput()
@@ -176,6 +172,16 @@ def main():
     log("Starting web servers", 'yellow')
     startWebserver(net, 'h1-1', "Default web server")
     startWebserver(net, 'h6-1', "*** Attacker web server ***")
+
+    # Print IP addresses of all hosts and routers
+    print("\nConnected IP addresses:")
+    for host in net.hosts:
+        ip = host.IP()
+        print(f"{host.name} - IP: {ip}")
+    for router in net.switches:
+        for intf in router.intfList():
+            if intf.IP():
+                print(f"{router.name} - Interface {intf.name} - IP: {intf.IP()}")
 
     CLI(net)
     net.stop()
