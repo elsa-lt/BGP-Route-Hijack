@@ -66,7 +66,7 @@ class SimpleTopo(Topo):
         # Add default members to class.
         super(SimpleTopo, self ).__init__()
         num_hosts_per_as = 3
-        num_ases = 3
+        num_ases = 5
         num_hosts = num_hosts_per_as * num_ases
         # The topology has one router per AS
         routers = []
