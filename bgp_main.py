@@ -28,7 +28,7 @@ FLAGS_rogue_as = args.rogue
 ROGUE_AS_NAME = 'R6'
 
 def log(s, col="green"):
-    print T.colored(s, col)
+    print(T.colored(s, col))
 
 
 class Router(Switch):
