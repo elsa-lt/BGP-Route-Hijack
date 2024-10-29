@@ -116,7 +116,7 @@ def getIP(hostname):
     AS = int(AS)
     if AS == 6:
         AS = 1
-    ip = '%s.0.%s.1/24' % (10+AS, idx)
+    ip = '%s.0.%s.1/24' % (9+AS, idx)
     return ip
 
 
@@ -127,7 +127,7 @@ def getGateway(hostname):
     # attacker.
     if AS == 6:
         AS = 1
-    gw = '%s.0.%s.254' % (10+AS, idx)
+    gw = '%s.0.%s.254' % (9+AS, idx)
     return gw
 
 
