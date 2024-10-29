@@ -54,7 +54,7 @@ class Router(Switch):
         self.deleteIntfs()
 
     def log(self, s, col="magenta"):
-        print T.colored(s, col)
+        print(T.colored(s, col))
 
 
 class GraphTopo(Topo):
@@ -79,10 +79,11 @@ class GraphTopo(Topo):
         num_hosts = num_hosts_per_as * num_ases
         # The topology has one router per AS
         # set 1-6 routers
-	routers = []
+        routers = []
         for i in xrange(num_ases):
             router = self.addSwitch('S%d' % (i+1))
-	    routers.append(router)
+            
+        routers.append(router)
         # set R1-R6 add 3 host each
         hosts = []
         for i in xrange(num_ases):
