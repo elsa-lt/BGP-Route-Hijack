@@ -25,7 +25,7 @@ parser.add_argument('--sleep', default=3, type=int)
 args = parser.parse_args()
 
 FLAGS_rogue_as = args.rogue
-ROGUE_AS_NAME = 'R6'
+ROGUE_AS_NAME = 'S6'
 
 def log(s, col="green"):
     print(T.colored(s, col))
@@ -57,18 +57,6 @@ class Router(Switch):
 
 
 class GraphTopo(Topo):
-    """The Autonomous System topology is graph topology
-            AS4
-           / | \
-          /  |  \
-         AS2-----AS5
-         |\  |   /|
-         | \ |  / |
-         |  AS3   |
-         |  /     |
-         | /      |
-         AS1     AS6
-    """
     def __init__(self):
         # Add default members to class.
         super(GraphTopo, self ).__init__()
@@ -116,7 +104,7 @@ def getIP(hostname):
     AS = int(AS)
     if AS == 6:
         AS = 1
-    ip = '9.0.%s.%s/24' % (AS, idx)
+    ip = '%s.0.%s.1/24' % (10+AS, idx)
     return ip
 
 
@@ -127,17 +115,17 @@ def getGateway(hostname):
     # attacker.
     if AS == 6:
         AS = 1
-    gw = '9.0.%s.254' % AS
+    gw = '%s.0.%s.254' % (10+AS, idx)
     return gw
 
 
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
-    return host.popen("python webserver.py --text '%s'" % text, shell=True)
+    return host.popen("sudo python3 webserver.py --text '%s'" % text, shell=True)
 
 
 def main():
-    os.system("rm -f /tmp/R*.log /tmp/R*.pid logs/*")
+    os.system("rm -f /tmp/S*.log /tmp/S*.pid logs/*")
     os.system("mn -c >/dev/null 2>&1")
     os.system("killall -9 zebra bgpd > /dev/null 2>&1")
     os.system('pgrep -f webserver.py | xargs kill -9')
@@ -148,7 +136,8 @@ def main():
         router.cmd("sysctl -w net.ipv4.ip_forward=1")
         router.waitOutput()
 
-    log("Waiting %d seconds for sysctl changes to take effect..." % args.sleep)
+    log("Waiting %d seconds for sysctl changes to take effect..."
+        % args.sleep)
     sleep(args.sleep)
 
     for router in net.switches:
