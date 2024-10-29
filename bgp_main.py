@@ -124,7 +124,6 @@ def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
     return host.popen("sudo python3 webserver.py --text '%s'" % text, shell=True)
 
-
 def main():
     os.system("rm -f /tmp/S*.log /tmp/S*.pid logs/*")
     os.system("mn -c >/dev/null 2>&1")
@@ -147,18 +146,8 @@ def main():
         router.cmd("/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid > logs/%s-zebra-stdout 2>&1" % (router.name, router.name, router.name))
         router.waitOutput()
         router.cmd("/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid > logs/%s-bgpd-stdout 2>&1" % (router.name, router.name, router.name), shell=True)
-        # mannual start the interface 'lo'
+  
         router.cmd("ifconfig lo up")
-        # mannual add the route table
-        #if router.name == "S1":
-        #   router.cmd("route add -net 12.0.0.0/8 gw 9.0.0.2")
-        #    router.cmd("route add -net 13.0.0.0/8 gw 9.0.0.2")
-        #elif router.name == "S2":
-        #    router.cmd("route add -net 11.0.0.0/8 gw 9.0.0.1")
-        #    router.cmd("route add -net 13.0.0.0/8 gw 9.0.1.2")
-        #elif router.name == "S3":
-        #    router.cmd("route add -net 11.0.0.0/8 gw 9.0.1.1")
-        #    router.cmd("route add -net 12.0.0.0/8 gw 9.0.1.1")
         router.waitOutput()
         log("Starting zebra and bgpd on %s" % router.name)
 
