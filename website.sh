@@ -5,7 +5,7 @@ bold=`tput bold`
 normal=`tput sgr0`
 
 while true; do
-    out=`sudo python3 run.py --node $node --cmd "curl -s 13.0.1.1"`
+    out=`sudo python3 run.py --node $node --cmd "curl -s 15.0.1.1"`
     date=`date`
     echo $date -- $bold$out$normal
     sleep 5

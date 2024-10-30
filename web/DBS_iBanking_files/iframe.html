@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://www.dbs.com.sg/ibanking/login-ib-rwd/dbs/iframe.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Copyright" content="(c) Copyright  2004 DBS Bank">
+    <meta name="format-detection" content="telephone=no">
+    <title>DBS iBanking</title>
+    <link rel="stylesheet" href="./bootstrap.css">
+    <link rel="stylesheet" href="./themes.css">
+    <link rel="stylesheet" href="./language.css">
+    <link href="./enhanced.css" rel="stylesheet"> 
+    <script src="./jquery-1.10.2.js.download"></script>
+    <script type="text/javascript"> 
+	
+	//this is scheduling body text
+		window.setInterval(function() {
+
+  var current = new Date();
+  var live = new Date('Aug 7, 2017')
+
+
+  if (current.getTime() > live.getTime()) {
+    $('#body_text').hide();
+ 
+  }
+
+}, 0);
+//end body text script
+	
+$(document).ready(function() {
+      $('.closealert').click(function(){
+		$('.announcement').hide();
+	})  
+                
+                                var dynamicImages = [{
+        imageclass: "Festival",
+        text: "Festival",
+    }, {
+                                //Dawn eg text Reflection • Photo by Ang Beng Yang
+        imageclass: "Dawn",
+        text: " "
+    }, {
+                                //Daytime 
+        imageclass: "Daytime",
+        text: " "
+    }, {
+                                //Noon 
+        imageclass: "Noon",
+        text: " "
+    }, {
+                                //Sunset
+        imageclass: "Sunset",
+        text: " "
+    },{
+                                //Night
+                                imageclass: "Night",
+        text: " "
+    }];
+	
+	var festivalDay = false;
+    var currentDate = new Date();
+    var n = currentDate.getHours();
+	
+	
+	var festivedate = {
+		farray1: {date:new Date("July 13, 2016"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray2: {date:new Date("July 14, 2016"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray3: {date:new Date("Jun 21, 2015"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray4: {date:new Date("Jun 2, 2015"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray5: {date:new Date("Jun 22, 2015"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray6: {date:new Date("Jun 23, 2015"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray7: {date:new Date("Jun 24, 2015"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray8: {date:new Date("Jun 25, 2017"), imageclass:"hariraya", mimageclass:"mhariraya", imagetext:"Selamat Hari Raya Aidilfitri"},
+		farray9: {date:new Date("Jun 26, 2017"), imageclass:"hariraya", mimageclass:"measter16", imagetext:"Selamat Hari Raya Aidilfitri"},
+		farray10: {date:new Date("Jun 27, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray11: {date:new Date("Jun 28, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray12: {date:new Date("Jun 29, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray13: {date:new Date("Jun 30, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray14: {date:new Date("Jul 1, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray15: {date:new Date("Jul 2, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray16: {date:new Date("Jul 3, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray17: {date:new Date("Jul 4, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray18: {date:new Date("Jul 5, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray19: {date:new Date("Jul 6, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray20: {date:new Date("Jul 7, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray21: {date:new Date("Jul 8, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray22: {date:new Date("Jul 9, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray23: {date:new Date("Jul 10, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray24: {date:new Date("Jul 11, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray25: {date:new Date("Jul 12, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray26: {date:new Date("Jul 13, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray27: {date:new Date("Jul 14, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray28: {date:new Date("Jul 15, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray29: {date:new Date("Jul 16, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray30: {date:new Date("Jul 17, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray31: {date:new Date("Jul 18, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray32: {date:new Date("Jul 19, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray33: {date:new Date("Jul 20, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray34: {date:new Date("Jul 21, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray35: {date:new Date("Jul 22, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray36: {date:new Date("Jul 23, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray37: {date:new Date("Jul 24, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray38: {date:new Date("Jul 25, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray39: {date:new Date("Jul 26, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+		farray40: {date:new Date("Jul 27, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+        farray41: {date:new Date("Jul 28, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+    	farray42: {date:new Date("Jul 29, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "},
+	  	farray43: {date:new Date("Jan 1, 2018"), imageclass:"ndp", mimageclass:"mndp", imagetext:"Happy New Year"},
+		farray44: {date:new Date("Dec 24, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Season's Greetings"},
+	  	farray45: {date:new Date("Dec 25, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Season's Greetings"},
+		farray46: {date:new Date("Dec 26, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Season's Greetings"},
+	  	farray47: {date:new Date("Dec 27, 2017"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Season's Greetings"},
+  		farray48: {date:new Date("Feb 15, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+   		farray49: {date:new Date("Feb 16, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+ 		farray50: {date:new Date("Feb 17, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+		farray51: {date:new Date("Feb 18, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray52: {date:new Date("Feb 19, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray53: {date:new Date("Feb 20, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray54: {date:new Date("Feb 21, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray55: {date:new Date("Feb 22, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray56: {date:new Date("Feb 23, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray57: {date:new Date("Feb 24, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray58: {date:new Date("Feb 25, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray59: {date:new Date("Feb 26, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray60: {date:new Date("Feb 27, 2018"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Wishing you a paws-perous Lunar New Year!"},
+        farray61: {date:new Date("Feb 5, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Gong Xi Fa Cai!"},
+        farray62: {date:new Date("Apr 21, 2019"), imageclass:"easter16", mimageclass:"measter17", imagetext:"Happy Easter!"} ,
+		farray63: {date:new Date("Jul 08, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray64: {date:new Date("Jul 09, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray65: {date:new Date("Jul 10, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray66: {date:new Date("Jul 11, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray67: {date:new Date("Jul 12, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray68: {date:new Date("Jul 13, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray69: {date:new Date("Jul 14, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+		farray70: {date:new Date("Jul 15, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray71: {date:new Date("Aug 05, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray72: {date:new Date("Aug 06, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray73: {date:new Date("Aug 07, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray74: {date:new Date("Aug 08, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray75: {date:new Date("Aug 09, 2019"), imageclass:"ndp", mimageclass:"mndp", imagetext:"Happy Birthday Singapore!"} ,
+        farray76: {date:new Date("Aug 10, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray77: {date:new Date("Oct 23, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray78: {date:new Date("Oct 24, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray79: {date:new Date("Oct 25, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+        farray80: {date:new Date("Oct 26, 2019"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+       	farray81: {date:new Date("May 10, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+      	farray82: {date:new Date("May 11, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+    	farray83: {date:new Date("May 12, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+  		farray84: {date:new Date("May 13, 2021"), imageclass:"easter17", mimageclass:"measter17", imagetext:"Selamat Hari Raya Aidilfitri"} ,
+  		farray85: {date:new Date("May 14, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+  		farray86: {date:new Date("May 15, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:" "} ,
+  		farray87: {date:new Date("May 26, 2021"), imageclass:"easter16", mimageclass:"measter16", imagetext:"Happy Vesak Day"},
+  		farray88: {date:new Date("Aug 03, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+  		farray89: {date:new Date("Aug 04, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+  		farray90: {date:new Date("Aug 05, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+  		farray91: {date:new Date("Aug 06, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+  		farray92: {date:new Date("Aug 07, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+		farray93: {date:new Date("Aug 08, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:" "},
+      	farray94: {date:new Date("Aug 09, 2021"), imageclass:"easter17", mimageclass:"measter17", imagetext:"Happy National Day"},
+      	farray95: {date:new Date("Sep 16, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray96: {date:new Date("Sep 17, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+    	farray97: {date:new Date("Sep 18, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray98: {date:new Date("Sep 19, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray99: {date:new Date("Sep 20, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray100: {date:new Date("Sep 21, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray101: {date:new Date("Sep 22, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray102: {date:new Date("Nov 04, 2021"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray103: {date:new Date("Jan 24, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray104: {date:new Date("Jan 25, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray105: {date:new Date("Jan 26, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray106: {date:new Date("Jan 27, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray107: {date:new Date("Jan 28, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray108: {date:new Date("Jan 29, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray109: {date:new Date("Jan 30, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray110: {date:new Date("Jan 31, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray111: {date:new Date("Feb 01, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+   		farray112: {date:new Date("Feb 02, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray113: {date:new Date("Feb 03, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray114: {date:new Date("Sep 05, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+      	farray115: {date:new Date("Sep 06, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+    	farray116: {date:new Date("Sep 07, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+  		farray117: {date:new Date("Sep 08, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray118: {date:new Date("Sep 09, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray119: {date:new Date("Sep 10, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray120: {date:new Date("Sep 11, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray121: {date:new Date("Sep 12, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray122: {date:new Date("Sep 13, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray123: {date:new Date("Sep 14, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray124: {date:new Date("Sep 15, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray125: {date:new Date("Sep 16, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray126: {date:new Date("Sep 17, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray127: {date:new Date("Sep 18, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray128: {date:new Date("Sep 19, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray129: {date:new Date("Sep 20, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray130: {date:new Date("Sep 21, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray131: {date:new Date("Sep 22, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray132: {date:new Date("Sep 23, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray133: {date:new Date("Nov 23, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray134: {date:new Date("Nov 24, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray135: {date:new Date("Nov 25, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray136: {date:new Date("Nov 26, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray137: {date:new Date("Nov 27, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray138: {date:new Date("Nov 28, 2022"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray139: {date:new Date("Aug 01, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray140: {date:new Date("Aug 02, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray141: {date:new Date("Aug 03, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray142: {date:new Date("Aug 04, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray143: {date:new Date("Aug 05, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray144: {date:new Date("Aug 06, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray145: {date:new Date("Aug 07, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray146: {date:new Date("Aug 08, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""},
+        farray147: {date:new Date("Aug 09, 2024"), imageclass:"easter15", mimageclass:"measter15", imagetext:""}
+  
+	}
+	
+	jQuery.each(festivedate, function(i, val) {
+		
+    if(festivalDay != true){
+		
+        if (currentDate.setHours(0, 0, 0, 0) == val.date.setHours(0, 0, 0, 0)) {
+			
+			//alert(val.mimageclass.toString());
+			
+			$('.image').addClass(val.imageclass.toString());
+			$('.image-name').text(val.imagetext.toString());
+			
+			$('.mimage').addClass(val.mimageclass.toString());
+			
+			festivalDay = true;
+        
+		} else {
+		
+            if (n >= 5 && n < 8) {
+				$('.image').addClass(dynamicImages[1].imageclass);
+                $('.image-name').text(dynamicImages[1].text);
+            } else if (n >= 8 && n < 13) {
+                $('.image').addClass(dynamicImages[2].imageclass);
+                $('.image-name').text(dynamicImages[2].text);
+            } else if (n >= 13 && n < 17) {
+                $('.image').addClass(dynamicImages[3].imageclass);
+                $('.image-name').text(dynamicImages[3].text);
+            } else if (n >= 17 && n < 20) {
+                $('.image').addClass(dynamicImages[4].imageclass);
+                $('.image-name').text(dynamicImages[4].text);
+            } else {
+                $('.image').addClass(dynamicImages[5].imageclass);
+                $('.image-name').text(dynamicImages[5].text);           
+			}
+        }
+    }
+	
+	
+    });
+	
+	//this is scheduling body text
+		window.setInterval(function() {
+
+  var current = new Date();
+  var live = new Date('Aug 7, 2017')
+
+
+  if (current.getTime() > live.getTime()) {
+    $('#body_text').hide();
+ 
+  }
+
+}, 0);
+	
+ //THIS IS START OF SCHEDULED MESSAGE
+        	$(document).ready(function(){
+        
+                var current = new Date()
+var startDateTime = new Date("October 14, 2024 18:30:00")
+var endDateTime = new Date("October 20, 2024 06:00:01")
+
+var masStartDateTime = new Date("December 04, 2023 16:00:00")
+var masEndDateTime = new Date("February 28, 2025 10:00:01")
+
+//var adhoc_msg = "Scheduled Maintenance: To better serve you, we will be carrying out maintenance of our digital services. Please click <a href='https://www.dbs.com.sg/personal/deposits/maintenance-schedule.page' target='_blank'>here</a> for more details.";
+              
+var adhoc_msg = "Scheduled Maintenance: Digital services (digibank, DBS PayLah!, DBS Vickers Online/mTrading) and adding of credit/debit cards to Apple/Google/Samsung Pay will be unavailable from 12am to 7am on 20 Oct. <a href='https://www.dbs.com.sg/personal/deposits/maintenance-schedule.page' target='_blank'>Learn more</a>.";   
+
+//var adhoc_msg = "Scheduled Maintenance: FAST and PayNow transfers will be unavailable between 12am and 6am on 18 August 2024. Thank you for your patience.";
+
+//var adhoc_msg = "Payment transactions via some NETS terminals are unavailable; NETS is working to restore the services. Please use DBS/POSB digibank and PayLah Scan and Pay or PayNow to make payments. <a href='https://www.dbs.com.sg/personal/downtime.page' target='_blank'>Learn more</a>";
+              
+//var adhoc_msg = "Payment transactions via some NETS terminals are unavailable; NETS is working to restore the services. Please use DBS/POSB digibank and PayLah! Scan & Pay or PayNow to make payments. <br><br>Our customers are facing an issue making card transactions online with 3D-Secure merchants. <a href='https://www.dbs.com.sg/personal/downtime.page' target='_blank'>Learn more</a>";
+
+//var adhoc_msg = "We would like to update that our customer care hotline services have returned to normal. Thank you for your patience and understanding."; 
+              
+//var expired_message = "Please note that you need to update your digibank app if you are using the new iOS15 from 20 Sep.";
+              
+var expired_message = ""; 
+              
+var masBanner_msg ="Stay vigilant against job scams, never reveal your banking credentials and verify the legitimacy of any job offer through their official website.";
+              
+//var masBanner_msg ="ALERT: Scammers impersonating DBS may target you via SMS phishing. Do not click on any SMS with clickable links. Learn more <strong><a class='anchorlink' href='https://www.dbs.com.sg/personal/deposits/bank-with-ease/protecting-yourself-online#security-and-you' target='_blank'>here</a></strong>.";
+
+var masBanner_expired_msg =" Scammers impersonating DBS may target you via phishing scams. Never disclose your banking credentials and personal details to unverified sources and stay updated with the latest security alerts. Learn more <a href=' https://www.dbs.com.sg/personal/deposits/security-and-you/default.page' target='_blank'>here</a>."
+
+                if (current.getTime() <= startDateTime.getTime()) {
+                   $("div.expired_message").html(expired_message);   
+                  $('div.adhoc_message').hide();
+                    $("div.expired_message").show();	
+                }
+                else {
+                	$("div.adhoc_message").html(adhoc_msg); 
+        			$("div.adhoc_message").show(); 
+                }
+        
+                if (current.getTime() <= endDateTime.getTime()) {
+                    $('div.adhoc_message').show();                  
+                }
+                else {
+                    $("div.expired_message").html(expired_message); 
+        			$("div.expired_message").show();
+                    $('div.adhoc_message').hide();
+                }
+
+        
+                // $('#Time').show();
+                // $('#Time').text(current);
+              
+               if (current.getTime() <= masStartDateTime.getTime()) {
+					$("div.announcement_text").html(masBanner_expired_msg);
+                }
+                else {
+					$("div.announcement_text").html(masBanner_msg);
+                }
+        
+                if (current.getTime() >= masEndDateTime.getTime()) {
+                   $("div.announcement_text").html(masBanner_expired_msg);                
+                }
+               
+            });
+            
+        });
+    </script>
+    </head>
+    <body style="">
+
+<!-- mobile view -->
+<div class="mimage"></div>
+<!-- mobile view -->
+
+<div class="image Daytime"></div>
+
+<!-- mobile view -->
+<div class="mimage"></div>
+<!-- mobile view -->
+
+<div class="gradient"></div>
+<div class="announcement"><div><span class="infoalert"><img src="./Alert_info.svg"></span></div>
+<div class="announcement_text">Stay vigilant against job scams, never reveal your banking credentials and verify the legitimacy of any job offer through their official website.</div>
+
+<div class="closeIcon"><span class="closealert"><img src="./Close_icon.svg"></span></div>
+
+</div>
+<div class="header clearfix">
+      <div class="top-links hidden-xs">
+    <ul class="">
+          <li class="first"> <a href="http://www.dbs.com.sg/index/locator.page?pid=sg-dbs-ib-login-icon-locator" target="_blank"> <i class="icon ico-location2"></i><span>Find Us</span> </a> </li>
+          <li> <a href="http://www.dbs.com.sg/personal/support/home.html" target="_blank"> <i class="icon ico-information3"></i><span>Help &amp; Support</span> </a> </li>
+        </ul>
+  </div>
+      <div class="adhoc_message" style="display: none;">Scheduled Maintenance: Digital services (digibank, DBS PayLah!, DBS Vickers Online/mTrading) and adding of credit/debit cards to Apple/Google/Samsung Pay will be unavailable from 12am to 7am on 20 Oct. <a href="https://www.dbs.com.sg/personal/deposits/maintenance-schedule.page" target="_blank">Learn more</a>.</div>
+      <div class="expired_message" style="display:block;"></div>
+      <div id="body_text" style="display: none;"><!--start body text-->
+    <div class="body_text" style="width:500px;margin-top:300px; padding-left:50px;z-index:99; color:#000000;">
+          <!--h2 style="font-weight:bold strong heavy; font-size:34px;"><strong>Get updated on the upcoming<br>
+            ANZ transfer to DBS.</strong></h2>
+          <strong><a style="color:#f01714; text-decoration:underline; font-weight:bold strong heavy !important;" href="http://www.dbs.com.sg/personal/landing/anz-welcome/index.html?pid=sg-dbs-ib-login-textlink-others-anz-learnmore" target="_blank">Learn more</a></strong--> 
+          
+          <!--<a style="color:#ffffff;" href="http://www.dbs.com.sg/personal/landing/anz-welcome/index.html?pid=sg-iwealth-ib-login-textlink-others-anz-btnlearnmore" target="_blank"><button title="Learn more" style="background-color: #f01714; border: 1px solid #ee1818; color:#ffffff; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; display: inline-block; padding: 0; line-height: 22px; font-weight: 500; min-width: 144px; height: 40px; text-decoration: none;padding:5px;">What's New</button></a>--> 
+        </div>
+  </div>
+      <!--end body text--> 
+      
+    </div>
+<div class="clearfix"></div>
+<footer class="footer global text-center">
+      <div class="footer-content">
+    <div class="image-name mBot-32 hidden-xs hidden-sm"> </div>
+    <div class="bottom-links hidden-md hidden-lg mBot-32">
+          <ul class="">
+        <li class="first"> <a href="http://www.dbs.com.sg/index/locator.page?pid=sg-dbs-ib-login-icon-locator" target="_blank"> <i class="icon ico-location2"></i> <span>Find Us</span> </a>&nbsp; </li>
+        <li> <a href="http://www.dbs.com.sg/personal/support/home.html" target="_blank"> <i class="icon ico-information3"></i> <span>Help &amp; Support</span> </a> </li>
+      </ul>
+        </div>
+    <div class="footer-links clearfix">
+          <ul class="none">
+        <li class="first"> <a href="http://www.dbs.com/terms/default.page" target="_blank" opclka="true:20:TermsConditions" ops="Forex" role="link">Terms &amp; Conditions</a><span> </span> </li>
+        <li> <a href="http://www.dbs.com/privacy/default.page" target="_blank" opclka="true:20:PrivacyPolicy" ops="Cards" role="link">Privacy Policy</a><span> </span> </li>
+        <li> <a href="http://www.dbs.com/fairdealing/default.page" target="_blank" opclka="true:20:FairDealing" ops="Mortgage" role="link">Fair Dealing Commitment</a><span> </span> </li>
+        <li> <a href="http://www.dbs.com.sg/personal/compliance-tax-requirements/index.html" target="_blank" opclka="true:20:CompliancewithTaxRequirements" ops="CompliancewithTaxRequirements" role="link">Compliance with Tax Requirements</a><span> </span> </li>
+        <li> <a href="https://www.dbs.com/vdp/default.page" target="_blank" role="link">Vulnerability Disclosure Policy</a><span> </span> </li>
+        <li><a href="http://www.dbs.com.sg/personal/default.page?pid=sg-dbs-ib-login-txtlink-dbsbank" target="_blank">©2024 DBS Bank Ltd. Co. Reg. No. 196800306E</a></li>
+      </ul>
+        </div>
+    <div class="footer-social-box clearfix">
+          <ul>
+        <li><a href="http://www.facebook.com/dbs" role="link" target="_blank"><span class="icon ico-facebook"></span></a></li>
+        <li><a href="http://twitter.com/dbsbank" role="link" target="_blank">
+          <p id="smallscreen">
+                  <svg width="29" height="29" viewBox="0 0 30 30" fill="#c0c0c0" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15ZM21.1554 9L16.4199 14.5046H16.4196L21.57 22H17.7821L14.3139 16.9526L9.97171 22H8.84949L13.8157 16.2276L8.84949 9H12.6373L15.9214 13.7796L20.0332 9H21.1554ZM14.3797 15.5715L14.8829 16.2912V16.2915L18.3101 21.1936H20.0337L15.8339 15.1862L15.3307 14.4665L12.0997 9.84479H10.3761L14.3797 15.5715Z"></path>
+                  </svg>
+                </p>
+                <p id="largescreen">
+                  <svg width="29" height="29" viewBox="0 0 30 30" fill="#c0c0c0" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M30 15C30 23.2843 23.2843 30 15 30C6.71573 30 0 23.2843 0 15C0 6.71573 6.71573 0 15 0C23.2843 0 30 6.71573 30 15ZM21.1554 9L16.4199 14.5046H16.4196L21.57 22H17.7821L14.3139 16.9526L9.97171 22H8.84949L13.8157 16.2276L8.84949 9H12.6373L15.9214 13.7796L20.0332 9H21.1554ZM14.3797 15.5715L14.8829 16.2912V16.2915L18.3101 21.1936H20.0337L15.8339 15.1862L15.3307 14.4665L12.0997 9.84479H10.3761L14.3797 15.5715Z"></path>
+                  </svg>
+                </p>
+          </a></li><a href="http://twitter.com/dbsbank" role="link" target="_blank">
+        </a><li><a href="http://twitter.com/dbsbank" role="link" target="_blank"></a><a href="http://www.linkedin.com/company/dbs-bank" role="link" target="_blank"><span class="icon ico-linkedin"></span></a></li>
+        <li class="mRight-0"><a href="http://www.youtube.com/user/DBS/feed" role="link" target="_blank"><span class="icon ico-youtube"></span></a></li>
+      </ul>
+        </div>
+    <div class="clearfix"></div>
+  </div>
+    </footer>
+<style>
+     
+    /*-- Festival CSS Settings --*/
+	.image.easter15{
+	background: url('images/bg-images/nds-ib-2024.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/sparks-s3.jpg',sizingMethod='scale')";
+	}
+
+	.image.easter15  {
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+	
+	/*-- Festival IPAD CSS Settings --*/
+	.mimage.measter15{
+	background: url('/ibanking/login-ib-rwd/dbs/images/bg-images/Daytime.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/ibanking/login-ib-rwd/dbs/images/bg-images/Daytime.jpg',sizingMethod='scale')";
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+     
+	/*-- Festival CSS Settings --*/
+	.image.easter16{
+	background: url('images/bg-images/vesak2021.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/vesak2021.jpg',sizingMethod='scale')";
+	}
+
+	.image.easter16  {
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+	
+	/*-- Festival IPAD CSS Settings --*/
+	.mimage.measter16{
+	background: url('images/bg-images/vesak2021.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/vesak2021.jpg',sizingMethod='scale')";
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+
+/*-- Festival2 CSS Settings --*/
+	.image.easter17{
+	background: url('images/bg-images/ndp-2021.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/ndp-2021.jpg',sizingMethod='scale')";
+	}
+
+	.image.easter17  {
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+	
+	/*-- Festival2 IPAD CSS Settings --*/
+	.mimage.measter17{
+	background: url('images/bg-images/ndp-2021.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/ndp-2021.jpg',sizingMethod='scale')";
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+
+	
+	
+	/*-- NDP SETTINGS--*/
+	
+	.image.ndp{
+	background: url('images/bg-images/deepavali2019.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/deepavali2019.jpg',sizingMethod='scale')";
+	}
+
+	.image.ndp  {
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+	
+	/*-- NDP IPAD CSS Settings --*/
+	.mimage.mndp{
+	background: url('images/bg-images/deepavali2019.jpg');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/bg-images/deepavali2019.jpg',sizingMethod='scale')";
+	background-repeat:no-repeat;
+	vertical-align: middle;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	}
+	</style>
+    
+  <style>
+      svg:hover {
+        fill: #6082B6;
+      }
+
+      #smallscreen {
+        margin-bottom: -18px;
+      }
+	  #largescreen {
+        margin-top: -1px;
+      }      
+	  
+	  @media screen and (max-width: 768px) {
+  #largescreen{ display: none; }  
+  
+}
+@media screen and (min-width: 769px) {
+  #smallscreen{ display: none; }   
+  
+}	  
+    </style>
+<script defer="" src="./vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8d6f084519063e65&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2024.10.3&quot;,&quot;token&quot;:&quot;99ae44f82b6947e29f504bb0e8155562&quot;}" crossorigin="anonymous"></script>
+
+</body></html>

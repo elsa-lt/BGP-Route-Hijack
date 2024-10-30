@@ -122,7 +122,7 @@ def getGateway(hostname):
 
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
-    return host.popen("sudo python3 webserver.py --text '%s'" % text, shell=True)
+    return host.popen("sudo python3 customserver.py --text '%s'" % text, shell=True)
 
 def main():
     os.system("rm -f /tmp/S*.log /tmp/S*.pid logs/*")

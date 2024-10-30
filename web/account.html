@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+	<meta http-equiv="PRAGMA" content="NO-CACHE">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+
+	<meta name="Copyright" content="(c) Copyright  2004 DBS Bank">
+	<meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="bwpageid" content="Login">
+
+	<link rel="shortcut icon" href="./DBS_iBanking_files/dbs_logo_min1.png">
+
+	<title>DBS iBanking</title>
+	<link rel="stylesheet" href="./DBS_iBanking_files/themes_login.css">
+	<link rel="stylesheet" href="./DBS_iBanking_files/language_login.css">
+
+	<link rel="stylesheet" href="./DBS_iBanking_files/login.css">
+</head>
+<body>
+
+	<iframe src="./DBS_iBanking_files/iframe.html" id="iframe1" name="iframe1" scrolling="no" frameborder="0"
+		class="content-holder" style="height: 639px;">
+	</iframe>
+
+    <div class="login-form">
+        <div class="text-center logo">
+            <img src="./DBS_iBanking_files/desktoplogo.png" alt="DBS Logo">
+        </div>
+
+        <h1 style="margin: 10px 0px;">Welcome to Your Account</h1>
+
+        <!-- Secret word input -->
+        <div class="form-row input-layout">
+            <input type="text" name="secretWord" id="secretWord" maxlength="20" class="left" autocomplete="off">
+            <label for="secretWord">Set a Secret Word</label>
+        </div>
+
+        <!-- Submit button -->
+        <div class="mTop-38">
+            <button class="btn btn-primary block mBot-12" onclick="alert('Secret Word Submitted!')" type="button">Submit Secret Word</button>
+        </div>
+
+        <!-- Logout button -->
+        <div class="mTop-38">
+            <button class="btn btn-secondary block mBot-12" onclick="window.location.href='login.html'" type="button">Logout</button>
+        </div>
+    </div>
+</body>
+</html>

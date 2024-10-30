@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://internet-banking.dbs.com.sg/IB/Welcome -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+	<meta http-equiv="PRAGMA" content="NO-CACHE">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+
+	<meta name="Copyright" content="(c) Copyright  2004 DBS Bank">
+	<meta name="viewport" content="width=device-width, initial-scale=1,  user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="bwpageid" content="Login">
+
+	<link rel="shortcut icon" href="./DBS_iBanking_files/dbs_logo_min1.png">
+
+	<title>DBS iBanking</title>
+	<link rel="stylesheet" href="./DBS_iBanking_files/themes_login.css">
+	<link rel="stylesheet" href="./DBS_iBanking_files/language_login.css">
+
+	<link rel="stylesheet" href="./DBS_iBanking_files/login.css">
+</head>
+
+<body>
+
+	<iframe src="./DBS_iBanking_files/iframe.html" id="iframe1" name="iframe1" scrolling="no" frameborder="0"
+		class="content-holder" style="height: 639px;">
+	</iframe>
+
+
+	<form class="MainForm" name="MainForm" method="post">
+		<input type="hidden" name="isCancelClicked" value="0">
+		<input type="hidden" name="isSubmitClicked" value="0">
+		<!--body Starts Here-->
+		<div class="login-form">
+
+			<div class="text-center logo">
+
+				<img src="./DBS_iBanking_files/desktoplogo.png">
+
+			</div>
+
+			<div id="browsererrormsg" style="display:none;" class="brower-detect-error">
+				For an optimal viewing experience and security, we recommend that you use the latest web browser. Click
+				<a href="http://www.dbs.com.sg/personal/ibanking/additionalinfo/faq/technical/default.page"
+					target="_blank">here</a> for a list of supported browsers.
+			</div>
+
+
+
+			<input style="position:absolute;top:-9999px;" id="bot_username" type="text" value="bot">
+			<input style="position:absolute;top:-9999px;" id="bot_password" type="password" value="bot">
+
+
+
+			<div class="form-row input-layout">
+				<input tabindex="1" type="text" name="UID" id="UID" maxlength="20" placeholder="" class="left"
+					autocomplete="off">
+				<span class="highlight"></span>
+				<span id="uidBar" class="bar"></span>
+				<label>User ID</label>
+			</div>
+
+			<div id="errormsg" style="display:none" class="error-msg">
+				<h4 id="InvalidUserId">Sorry, you have entered an invalid User ID.</h4>
+			</div>
+
+
+
+			<div class="form-row input-layout pin">
+				<input tabindex="2" onkeyup="keyUp(event)" onkeydown="return onlyNumerics(event)" type="password"
+					maxlength="9" placeholder="" name="PIN" id="PIN" autocomplete="off" class="left">
+				<span class="highlight"></span>
+				<span id="pinBar" class="bar"></span>
+				<label>PIN</label>
+			</div>
+
+			<div id="errormsg1" style="display:none" class="error-msg">
+				<h4 id="InvalidPIN">The PIN length should range from 6 to 9 digits.</h4>
+			</div>
+
+			<div class="mTop-38">
+
+				<button class="btn btn-primary block mBot-12" onclick="window.location.href='account.html'" title="Login" tabindex="3"
+					type="button">Login</button>
+
+				<button class="btn btn-secondary right mBot-16" title="Get Started" tabindex="4" type="button">Get
+					Started</button>
+
+			</div>
+			<div class="links">
+				<ul class="">
+					<li>Forgot <a
+							href="javascript:aaLinkClick(&#39;login box-&#39;,&#39;forgot user id&#39;);javascript:submitibAPLEventForm(&#39;PrintUID&#39;);"
+							title="User ID" tabindex="5">User ID</a> or <a
+							href="javascript:aaLinkClick(&#39;login box-&#39;,&#39;pin&#39;);javascript:submitibAPLEventForm(&#39;ResetPIN&#39;);"
+							title="PIN" tabindex="6">PIN</a></li>
+					<li><a href="javascript:aaLinkClick(&#39;login box-&#39;,&#39;faq&#39;);javascript:GetTip(&#39;https://www.dbs.com.sg/ibanking/redirect/index.html?ref=pweb-dbs-ibanking-login-faq&#39;)"
+							title="Frequently Asked Questions" tabindex="7">Frequently Asked Questions</a></li>
+					<li><a href="javascript:aaLinkClick(&#39;login box-&#39;,&#39;maintenance schedule&#39;);javascript:GetTip(&#39;https://www.dbs.com.sg/ibanking/redirect/index.html?ref=pweb-dbs-maintenance-schedule&#39;)"
+							title="Maintenance Schedule" tabindex="8">Maintenance Schedule</a></li>
+					<li><a href="https://www.dbs.com.sg/ibanking/redirect/index.html?ref=pweb-dbs-security-and-you-phishing"
+							target="_blank" title="Security &amp; You" tabindex="9">Security &amp; You</a></li>
+				</ul>
+			</div>
+
+		</div>
+		<!--body Ends Here-->
+	</form>
+	<meta http-equiv="PRAGMA" content="NO-CACHE">
+
+</body>
+
+</html>
