@@ -61,10 +61,7 @@ class Router(Switch):
 
 
 class SimpleTopo(Topo):
-    """The Autonomous System topology is a simple straight-line topology
-    between AS1 -- AS2 -- AS3.  The rogue AS (AS4) connects to AS1 directly.
-
-    """
+    
     def __init__(self):
         # Add default members to class.
         super(SimpleTopo, self ).__init__()
@@ -88,7 +85,7 @@ class SimpleTopo(Topo):
         for i in range(num_ases-1):
             self.addLink('S%d'%(i+1), 'S%d'%(i+2))
 
-        # Lastly, added AS4!
+        # Lastly, added AS6!
         routers.append(self.addSwitch('S6'))
         for j in range(num_hosts_per_as):
             hostname = 'h%d-%d' % (6, j+1)
@@ -112,7 +109,7 @@ def getIP(hostname):
 def getGateway(hostname):
     AS, idx = hostname.replace('h', '').split('-')
     AS = int(AS)
-    # This condition gives AS4 the same IP range as AS3 so it can be an
+    # This condition gives AS6 the same IP range as AS5 so it can be an
     # attacker.
     if AS == 6:
         AS = 5
@@ -123,6 +120,7 @@ def getGateway(hostname):
 def startWebserver(net, hostname, text="Default web server"):
     host = net.getNodeByName(hostname)
     return host.popen("sudo python3 customserver.py --text '%s'" % text, shell=True)
+
 
 def main():
     os.system("rm -f /tmp/S*.log /tmp/S*.pid logs/*")
@@ -146,7 +144,7 @@ def main():
         router.cmd("/usr/lib/frr/zebra -f conf/zebra-%s.conf -d -i /tmp/zebra-%s.pid > logs/%s-zebra-stdout 2>&1" % (router.name, router.name, router.name))
         router.waitOutput()
         router.cmd("/usr/lib/frr/bgpd -f conf/bgpd-%s.conf -d -i /tmp/bgp-%s.pid > logs/%s-bgpd-stdout 2>&1" % (router.name, router.name, router.name), shell=True)
-  
+
         router.cmd("ifconfig lo up")
         router.waitOutput()
         log("Starting zebra and bgpd on %s" % router.name)

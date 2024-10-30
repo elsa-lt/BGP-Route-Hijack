@@ -58,7 +58,7 @@ def fetch_file(filename):
             ['sudo', 'mnexec', '-a', str(pid), 'curl', f'http://15.0.1.1/{filename}'],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=False,
+            text=True,
             check=True
         )
         
