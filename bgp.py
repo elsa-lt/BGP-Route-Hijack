@@ -88,7 +88,7 @@ class SimpleTopo(Topo):
         # add A7
         routers.append(self.addSwitch('S7'))
         for j in range(num_hosts_per_as):
-            hostname = 'h%d-%d' % (6, j+1)
+            hostname = 'h%d-%d' % (7, j+1)
             host = self.addHost(hostname, ip = "17.0.%d.1/24"%(j+1), defaultRoute = "via 17.0.%d.254"%(j+1))
             hosts.append(host)
             self.addLink('S7', hostname)
