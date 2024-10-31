@@ -1,0 +1,5 @@
+# ignore logs
+logs/
+
+#ignore secrets file
+web/secrets.json
