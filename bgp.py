@@ -66,7 +66,7 @@ class SimpleTopo(Topo):
         # Add default members to class.
         super(SimpleTopo, self ).__init__()
         num_hosts_per_as = 3
-        num_ases = 5
+        num_ases = 6
         num_hosts = num_hosts_per_as * num_ases
         # The topology has one router per AS
         routers = []
@@ -82,8 +82,19 @@ class SimpleTopo(Topo):
                 hosts.append(host)
                 self.addLink(router, host)
         # Add links between in ASes!
-        for i in range(num_ases-1):
+        for i in range(num_ases-2):
             self.addLink('S%d'%(i+1), 'S%d'%(i+2))
+
+        # add A7
+        routers.append(self.addSwitch('S7'))
+        for j in range(num_hosts_per_as):
+            hostname = 'h%d-%d' % (6, j+1)
+            host = self.addHost(hostname, ip = "17.0.%d.1/24"%(j+1), defaultRoute = "via 17.0.%d.254"%(j+1))
+            hosts.append(host)
+            self.addLink('S7', hostname)
+        # This MUST be added at the end
+        self.addLink('S1', 'S7')
+        self.addLink('S4', 'S7')
 
         # Lastly, added AS6!
         routers.append(self.addSwitch('S6'))
